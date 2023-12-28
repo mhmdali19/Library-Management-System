@@ -21,9 +21,10 @@ public class DefaulterList extends javax.swing.JFrame {
         Date todaydate=new Date(1);
         try{
             Connection con=DBConnection.getConnection();
-            PreparedStatement pst=con.prepareStatement("select * from issue_book_details where due_date < ? and status = ?");
-            pst.setDate(1, todaydate);
-            pst.setString(2, "pending");
+            PreparedStatement pst=con.prepareStatement("select * from issue_book_details" );
+            //select * from issue_book_details where due_date < ? and status = ?"
+          //  pst.setDate(1, todaydate);
+        //    pst.setString(2, "pending");
             ResultSet rs=pst.executeQuery();
             
             while (rs.next()){

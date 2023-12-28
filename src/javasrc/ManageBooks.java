@@ -10,9 +10,11 @@ import javax.swing.table.TableModel;
 
 
 public class ManageBooks extends javax.swing.JFrame {
-    String bookName,author;
+    String bookName,author,category;
         int bookId,quantity;
         DefaultTableModel model;
+        BookFactory bookFactory;
+        
     public ManageBooks() {
         initComponents();
         setBookDetailsToTable();
@@ -49,6 +51,24 @@ public class ManageBooks extends javax.swing.JFrame {
         bookName=txt_bname.getText();
         author=txt_Author.getText();
         quantity=Integer.parseInt(txt_Quantity.getText());
+        category=cmbCategory.getSelectedItem().toString();
+        
+        switch(category){
+            case "Fiction":
+            bookFactory = new FictionBookFactory(bookId,quantity,bookName,author,category);
+        break;
+    case "Non-Fiction":
+        bookFactory = new NonFictionBookFactory(bookId,quantity,bookName,author,category);
+        break;
+    case "Reference":
+        bookFactory = new ReferenceBookFactory(bookId,quantity,bookName,author,category);
+        break;
+    default:
+                
+        }
+        Book book = bookFactory.createBook();
+        book.displayInfo(this);
+        
         
         try{
             Connection con=DBConnection.getConnection();
@@ -155,11 +175,14 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txt_Quantity = new javax.swing.JTextField();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
         update = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txt_Quantity = new javax.swing.JTextField();
+        cmbCategory = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         book_table = new javax.swing.JTable();
@@ -216,44 +239,44 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Enter Book Id");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
-        jPanel1.add(txt_bid, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 420, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 130, 30));
+        jPanel1.add(txt_bid, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 420, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 30, 40));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 30, 40));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 40, 40));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 40, 40));
 
         txt_bname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_bnameFocusLost(evt);
             }
         });
-        jPanel1.add(txt_bname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 420, 30));
+        jPanel1.add(txt_bname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 420, 30));
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Enter Book Name");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 160, 30));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 160, 30));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Author Name");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 130, 30));
-        jPanel1.add(txt_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 420, 30));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 130, 30));
+        jPanel1.add(txt_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 420, 30));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 30, 40));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 30, 40));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Unit_26px.png"))); // NOI18N
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 30, 30));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 30, 30));
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Quantity");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 130, 30));
-        jPanel1.add(txt_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 420, 30));
+        jLabel16.setText("Category");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 130, 30));
+        jLabel16.getAccessibleContext().setAccessibleName("txtCategory");
 
         delete.setBackground(new java.awt.Color(255, 0, 51));
         delete.setForeground(new java.awt.Color(255, 255, 255));
@@ -289,6 +312,19 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("BOOK DETAILS");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 190, 50));
+
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Quantity");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 130, 30));
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 40, 40));
+        jPanel1.add(txt_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 420, 30));
+
+        cmbCategory.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        cmbCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fiction", "NonFiction", "Reference/TextBook", " " }));
+        jPanel1.add(cmbCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, 420, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 600));
 
@@ -463,6 +499,7 @@ public class ManageBooks extends javax.swing.JFrame {
     private javax.swing.JPanel Closepanel;
     private javax.swing.JButton add;
     private javax.swing.JTable book_table;
+    private javax.swing.JComboBox cmbCategory;
     private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -471,6 +508,8 @@ public class ManageBooks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
