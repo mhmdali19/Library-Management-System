@@ -41,8 +41,10 @@ public class LoginPage extends javax.swing.JFrame {
             pst.setString(2, pwd);
             ResultSet rs=pst.executeQuery();
             if(rs.next()){
+                String userName = rs.getString("name");
+                
                 //JOptionPane.showMessageDialog(this,"Login Successful");
-                HomePage home=new HomePage();
+                HomePage home=new HomePage(userName);
                 home.setVisible(true);
                 this.dispose();
             }else{

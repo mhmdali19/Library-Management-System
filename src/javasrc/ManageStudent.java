@@ -12,7 +12,7 @@ import javax.swing.table.TableModel;
 
 public class ManageStudent extends javax.swing.JFrame {
     
-    String studentName,course,branch;
+    String studentName,course,branch,email;
     int studentId;
     DefaultTableModel model;
     
@@ -52,16 +52,17 @@ public class ManageStudent extends javax.swing.JFrame {
         studentName=txt_sname.getText();
         course=combo_CourseName.getSelectedItem().toString();
         branch=comboBranch.getSelectedItem().toString();
+        email=txt_email.getText();
         
         try{
             Connection con=DBConnection.getConnection();
-            String sql="insert into student_details values(?,?,?,?)";
+            String sql="insert into student_details values(?,?,?,?,?)";
             PreparedStatement pst=con.prepareStatement(sql);
             pst.setInt(1,studentId);
             pst.setString(2,studentName);
             pst.setString(3,course);
             pst.setString(4,branch);
-            
+            pst.setString(5,email);
             int rowCount=pst.executeUpdate();
             if(rowCount > 0){
                 isAdded=true;
@@ -87,7 +88,7 @@ public class ManageStudent extends javax.swing.JFrame {
     public boolean updateStudent(){
         boolean isUpdated = false;
         studentId=Integer.parseInt(txt_sid.getText());
-        studentName=txt_sname.getText();
+        studentName=txt_email.getText();
         course=combo_CourseName.getSelectedItem().toString();
         branch=comboBranch.getSelectedItem().toString();
         
@@ -151,11 +152,10 @@ public class ManageStudent extends javax.swing.JFrame {
         txt_sid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txt_sname = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
@@ -163,6 +163,10 @@ public class ManageStudent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         combo_CourseName = new javax.swing.JComboBox();
         comboBranch = new javax.swing.JComboBox();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txt_sname = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         book_table = new javax.swing.JTable();
@@ -219,42 +223,39 @@ public class ManageStudent extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Enter Student Id");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 150, 30));
-        jPanel1.add(txt_sid, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 420, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 150, 30));
+        jPanel1.add(txt_sid, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 420, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 30, 40));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 30, 40));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 40, 40));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 40, 40));
 
-        txt_sname.addFocusListener(new java.awt.event.FocusAdapter() {
+        txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_snameFocusLost(evt);
+                txt_emailFocusLost(evt);
             }
         });
-        jPanel1.add(txt_sname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 420, 30));
+        jPanel1.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 420, 30));
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Enter Student Name");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 190, 30));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Select Course");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 130, 30));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 130, 30));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 30, 40));
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Unit_26px.png"))); // NOI18N
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 30, 40));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 30, 40));
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Select Branch");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 130, 30));
+        jLabel16.setText("Email");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, 130, 30));
 
         delete.setBackground(new java.awt.Color(255, 0, 51));
         delete.setForeground(new java.awt.Color(255, 255, 255));
@@ -293,11 +294,29 @@ public class ManageStudent extends javax.swing.JFrame {
 
         combo_CourseName.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         combo_CourseName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java", "Python", "Swift", " " }));
-        jPanel1.add(combo_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 420, 30));
+        jPanel1.add(combo_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 420, 30));
 
         comboBranch.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        comboBranch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CSE", "IT", "ECE", "EEE", "MECH", "CIVIL", " " }));
-        jPanel1.add(comboBranch, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 420, 30));
+        comboBranch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CSE", "IT", "MECH", "CIVIL", " " }));
+        jPanel1.add(comboBranch, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 420, 30));
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Unit_26px.png"))); // NOI18N
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 30, 40));
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 30, 40));
+
+        txt_sname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_snameFocusLost(evt);
+            }
+        });
+        jPanel1.add(txt_sname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 420, 30));
+
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Select Branch");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 130, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 600));
 
@@ -386,9 +405,9 @@ public class ManageStudent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BackMouseClicked
 
-    private void txt_snameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_snameFocusLost
+    private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusLost
        
-    }//GEN-LAST:event_txt_snameFocusLost
+    }//GEN-LAST:event_txt_emailFocusLost
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         if(deleteStudent() == true){
@@ -433,10 +452,14 @@ public class ManageStudent extends javax.swing.JFrame {
         TableModel model = book_table.getModel();
         
         txt_sid.setText(model.getValueAt(rowNo, 0).toString());
-        txt_sname.setText(model.getValueAt(rowNo, 1).toString());
+        txt_email.setText(model.getValueAt(rowNo, 1).toString());
         combo_CourseName.setSelectedItem(model.getValueAt(rowNo, 2).toString());
         comboBranch.setSelectedItem(model.getValueAt(rowNo, 3).toString());
     }//GEN-LAST:event_book_tableMouseClicked
+
+    private void txt_snameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_snameFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_snameFocusLost
 
     public static void main(String args[]) {
         
@@ -481,8 +504,10 @@ public class ManageStudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -493,6 +518,7 @@ public class ManageStudent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_sid;
     private javax.swing.JTextField txt_sname;
     private javax.swing.JButton update;
