@@ -3,11 +3,13 @@ package javasrc;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class HomePage extends javax.swing.JFrame{
 
+    
     Color mouseEnterColor = new Color(0,0,0);
     Color mouseExitColor = new Color(51,51,51);
     public HomePage() {
@@ -15,6 +17,18 @@ public class HomePage extends javax.swing.JFrame{
         //setDataToCards();
     }
  
+    public HomePage(String name) {
+        initComponents();
+        //setDataToCards();
+        jLabel4.setText("Welcome, " + name);
+        int nbBooks = getNbBooks();
+        int nbStudents = getNbStudents();
+        int nbissuedBooks = getNbIssuedBooks();
+        
+        jLabel15.setText("Books Nb: " + nbBooks);                                             
+        jLabel18.setText("Students Nb: " + nbStudents);
+        jLabel20.setText("Issued Books:" + nbissuedBooks);
+    }
     //setting card values from Database
     
     /*public void setDataToCards(){
@@ -91,7 +105,6 @@ public class HomePage extends javax.swing.JFrame{
         jLabel15 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -436,19 +449,21 @@ public class HomePage extends javax.swing.JFrame{
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
         jLabel15.setText("No.Of Books");
-        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, 30));
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 190, 30));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
         jLabel18.setText("No.Of Students");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 190, 30));
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 190, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
         jLabel20.setText("Issued Books");
-        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 140, 30));
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
-        jLabel22.setText("Defaulter List");
-        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 140, 30));
+        jLabel20.setMaximumSize(new java.awt.Dimension(200, 22));
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 140, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons/Webp.net-resizeimage (1).jpg"))); // NOI18N
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 780, 400));
@@ -459,6 +474,61 @@ public class HomePage extends javax.swing.JFrame{
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private int getNbBooks(){
+        int nbBooks = 0;
+         try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement("select Count(*) as cnt from book_details ");
+            
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+             nbBooks = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         return nbBooks;
+    }
+    
+    private int getNbStudents(){
+        int nbStudents = 0;
+         try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement("select Count(*) as cnt from student_details ");
+            
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+             nbStudents = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         return nbStudents;
+    }
+    
+    private int getNbIssuedBooks(){
+        int nbIssuedBooks = 0;
+         try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement("select Count(*) as cnt from issue_book_details ");
+            
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+             nbIssuedBooks = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         return nbIssuedBooks;
+    }
+    
+    
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
        System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
@@ -593,6 +663,21 @@ public class HomePage extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel21MouseClicked
 
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+ /*String outlookUsername = "Javacourse99@outlook.com";
+    String outlookPassword = "advancedJava99";
+
+    EmailSender outlookEmailSender = new EmailSender(outlookUsername, outlookPassword);
+
+    String recipientGmail = "mhmd01ali01@gmail.com";
+    String subject = "Test Email from Outlook to Gmail";
+    String message = "This is a test email sent from an Outlook account to a Gmail account.";
+
+    outlookEmailSender.sendEmail(recipientGmail, subject, message);
+        */
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel15MouseClicked
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -642,7 +727,6 @@ public class HomePage extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
