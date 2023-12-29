@@ -61,7 +61,10 @@ public class HomePage extends javax.swing.JFrame{
         e.printStackTrace();
         }
     }*/
+//String loggedInUserId = rs.getString("id");
 
+        // Retrieve user name using UserUtil
+      //  String userName = UserUtil.getUserName(loggedInUserId);
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

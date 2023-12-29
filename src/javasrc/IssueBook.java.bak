@@ -10,22 +10,23 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import org.jdatepicker.JDatePicker;
+<<<<<<< HEAD
 import org.jdatepicker.UtilDateModel;
-import java.awt.Color;
 
 public class IssueBook extends javax.swing.JFrame implements Observable {
 
-    private BookStatus bookStatus;
-    private BookState currentState;
-
     ArrayList<Observer> observers = new ArrayList<Observer>();
     ArrayList<Student> studentsList = new ArrayList<Student>();
-
+=======
+import java.awt.Color;
+public class IssueBook extends javax.swing.JFrame {
+>>>>>>> SerenaBranch2
 
     public IssueBook() {
         initComponents();
     }
 
+<<<<<<< HEAD
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
@@ -45,6 +46,10 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
             observer.update(email, message);
         }
     }
+
+=======
+    private BookStatus bookStatus;
+    private BookState currentState;
     
     public void setBookStatus(BookStatus status) {
         this.bookStatus = status;
@@ -60,6 +65,7 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         // Notify the state to handle the book status
         currentState.handleBookStatus(this);
     }
+>>>>>>> SerenaBranch2
     //To fetch  the book details from the book_details table in database
     public void getBookDetails() {
         int bookId = Integer.parseInt(txt_bookId.getText());
@@ -116,6 +122,7 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         int studentId = Integer.parseInt(txt_studentId.getText());
         String studentName = lblStudentname.getText();
         String bookName = lblBookname.getText();
+<<<<<<< HEAD
 
         String IssueDate = "";
         Calendar issueSelectedCalendar = (Calendar) issueDatePicker.getModel().getValue();
@@ -159,7 +166,33 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+=======
+        String IssueDate = issueDate.getText();
+        String DueDate = dueDate.getText();
 
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "insert into issue_book_details(book_id,book_name,student_id,"
+                    + "student_name,issue_date,due_date,status) value(?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, bookId);
+            pst.setString(2, bookName);
+            pst.setInt(3, studentId);
+            pst.setString(4, studentName);
+            pst.setString(5, IssueDate);
+            pst.setString(6, DueDate);
+            pst.setString(7, "Pending");
+
+            int rowCount = pst.executeUpdate();
+            if (rowCount > 0) {
+                isIssued = true;
+            } else {
+                isIssued = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> SerenaBranch2
         return isIssued;
     }
 
@@ -199,7 +232,11 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, bookId);
             pst.setInt(2, studentId);
+<<<<<<< HEAD
             pst.setString(3, "pending");
+=======
+            pst.setString(3, "Pending");
+>>>>>>> SerenaBranch2
 
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
@@ -224,8 +261,13 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         lblBranch.setText("");
         txt_bookId.setText("");
         txt_studentId.setText("");
+<<<<<<< HEAD
         issueDatePicker.getModel().setValue(null);
         dueDatePicker.getModel().setValue(null);
+=======
+        issueDate.setText("");
+        dueDate.setText("");
+>>>>>>> SerenaBranch2
     }
 
     @SuppressWarnings("unchecked")
@@ -553,10 +595,13 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         jPanelMain.add(txt_studentId, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 350, 260, 30));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/AddNewBookIcons/AddNewBookIcons/icons8_Books_52px_1.png"))); // NOI18N
-
+<<<<<<< HEAD
         jPanelMain.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 80, 100, 110));
         jPanelMain.add(issueDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 420, 260, 30));
         jPanelMain.add(dueDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 491, 260, 30));
+=======
+        jPanelMain.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, 100, 110));
+>>>>>>> SerenaBranch2
 
         getContentPane().add(jPanelMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 670));
 
@@ -565,11 +610,14 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Back1MouseClicked
+<<<<<<< HEAD
         //MA notify all list
         for (Student student : studentsList) {
             notifyObservers(student.getEmail(), "Test Message");
         }
 
+=======
+>>>>>>> SerenaBranch2
         HomePage home = new HomePage();
         home.setVisible(true);
         this.dispose();
@@ -620,6 +668,7 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+<<<<<<< HEAD
         int stdID = Integer.parseInt(lblStudentid.getText());
 
         Student student = getStudentDetails(stdID);
@@ -627,8 +676,28 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         observers.add(student);
 
         if (lblQuantity.getText().equals("0")) {
-
-        }
+=======
+        /*if (lblQuantity.getText().equals("0")) {
+>>>>>>> SerenaBranch2
+            JOptionPane.showMessageDialog(this, "Book is Not available");
+            clearDetails();
+        } else {
+            if (isAlreadyIssued() == false) {
+                if (issueBook() == true) {
+                    JOptionPane.showMessageDialog(this, "Book Issued!!");
+                    updateBookCount();
+                    clearDetails();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error occured while Book Issuing!!");
+                    clearDetails();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Book is Already issued to this Student!!");
+                clearDetails();
+            }
+<<<<<<< HEAD
+=======
+        }*/
         if(lblQuantity.getText().equals("0")) {
         JOptionPane.showMessageDialog(this, "Book is Not available");
         clearDetails();
@@ -643,7 +712,8 @@ public class IssueBook extends javax.swing.JFrame implements Observable {
         } else {
             JOptionPane.showMessageDialog(this, "Book is Already issued to this Student!!");
             clearDetails();
-        }}
+>>>>>>> SerenaBranch2
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked

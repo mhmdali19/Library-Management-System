@@ -1,5 +1,21 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+<<<<<<< HEAD
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package javasrc;
+
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author mohammadali081101
+ */
+public interface Book {
+    
+    
+    void displayInfo(ManageBooks manageBook);
+=======
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javasrc;
@@ -8,7 +24,7 @@ package javasrc;
  *
  * @author serena
  */
-public abstract class Book {
+public class Book {
     
     private int id,quantity;
     private String name,author;
@@ -56,8 +72,11 @@ public abstract class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
-	
-	 abstract void displayInfo(ManageBooks manageBook);
     
+    
+    
+    
+    
+>>>>>>> SerenaBranch2
     
 }

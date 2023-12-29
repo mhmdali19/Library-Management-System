@@ -17,14 +17,15 @@ public class ManageBooks extends javax.swing.JFrame {
         BookFactory bookFactory;
     private Stack<BookMemento> undoStack = new Stack<>();
 
-    
-     private ArrayList<Book> bookList = new ArrayList<>();
-   
+    private ArrayList<Book> getAllBookRecords() {
+     
+   private ArrayList<Book> bookList = new ArrayList<>();
 
     public ManageBooks() {
         initComponents();
         setBookDetailsToTable();
     }
+<<<<<<< HEAD
     
     
     //To add book to the database on clicking add button 
@@ -69,7 +70,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 isAdded=false;
 			}
 	} catch (Exception e) {}
-	return isAdded;
+	return isAdded
 	}
 
     public ArrayList<Book> getAllBookRecords(){
