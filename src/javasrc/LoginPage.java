@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 
+
 public class LoginPage extends javax.swing.JFrame {
-    
+    private Logging logger = Logging.getInstance();
     public LoginPage() {
         initComponents();
     }
@@ -35,21 +36,24 @@ public class LoginPage extends javax.swing.JFrame {
         String id=txt_sid.getText();
         String pwd=txt_password.getText();
         try{
-            Connection con=DBConnection.getConnection();
-            PreparedStatement pst=con.prepareStatement("select * from users where rollno=? and password=?");
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement("select * from users where rollno=? and password=?");
             pst.setString(1, id);
             pst.setString(2, pwd);
             ResultSet rs=pst.executeQuery();
             if(rs.next()){
-                //JOptionPane.showMessageDialog(this,"Login Successful");
+                //logger.log("Login successful for user with ID: " + id);
+                JOptionPane.showMessageDialog(this,"Login Successful");
                 HomePage home=new HomePage();
                 home.setVisible(true);
                 this.dispose();
             }else{
+                //logger.log("Login failed for user with ID: " + id);
                 JOptionPane.showMessageDialog(this,"Login Credentials are wrong");
             }
         }catch(Exception e){
             e.printStackTrace();
+           // logger.log("Exception during login: " + e.getMessage());
         }
     }
   
